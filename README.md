@@ -5,6 +5,8 @@ edit,update and delete posts and view them.
 
 Please do an npm install followed by npm start.
 
+![Login Page](https://github.com/Deepak003/Survey/blob/master/LOGIN.png)
+
 UI for Creating Post and Displaying Survey Posts
 ---------------------------------------------------
 
