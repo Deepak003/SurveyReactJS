@@ -1,19 +1,31 @@
 # Survey App With React and Redux
 The main goal of this was to use Redux and create a multi-user application
 where users can sign in or sign up using their email-address and password. They can create,
-edit,update and delete posts and view them.
+edit,update and delete posts and view them.This App uses Firebase as backend persistence API.
 
 Please do an npm install followed by npm start.
 
+
+1. Login Page :: Where existing Users can Login or SignUp
+-----------------------------------------------------------
+
 ![Login Page](https://github.com/Deepak003/Survey/blob/master/LOGIN.png)
+
+
+2. Create Survey Page :: Where Users can Post a Survey
+-------------------------------------------------------
+![Create Survey Page](https://github.com/Deepak003/Survey/blob/master/Survey_Create.png)
+
+
+2. Survey Wizard Page :: Where Users can Create a Survey
+---------------------------------------------------------
+![Login Page](https://github.com/Deepak003/Survey/blob/master/wizard.png)
+
+
+
 
 UI for Creating Post and Displaying Survey Posts
 ---------------------------------------------------
-
-![Create Survey Page](https://github.com/Deepak003/Survey/blob/master/Survey_Create.png)
-
-![Wizard Page](https://github.com/Deepak003/Survey/blob/master/Wizard.png)
-
 Now that we have our basic UI in place let’s get into Redux. First thing to understand about Redux is something called the store. It’s where the entire state of your application will live. This is the first main benefit of using Redux. Instead of having to manage the state in different components we have to only manage it in one single place called the store. The store is an object which has some methods in it that allows us to get the current state of our application, subscribe to changes or update the existing state of our application. This is great because now we don’t have to pass down data from the parent component to deeply nested child components through props. So anytime a component needs data it can ask the store and the store will provide it with the data. As simple as that. With that in mind let’s create the store. In our crud-redux/src/index.js make the following changes-
 
 ------------------------------------------------------------------------------------------------------
@@ -30,6 +42,10 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 ---------------------------------------------------------------------------------------------------------
 The createStore method will allow us to create the store but we are not done yet. This method needs a special argument and this argument goes by a special name called the ‘reducer’. Let’s create a separate folder called reducers. So under crud-redux/src create a folder called ‘reducers’. Inside that folder create a file called postReducer.js Add the following code for now.
+
+![Login Page](https://github.com/Deepak003/Survey/blob/master/1.png)
+
+![Login Page](https://github.com/Deepak003/Survey/blob/master/2.png)
 
 -------------------------------------------------------------------------------------------
 const postReducer = (state = [], action) => {
