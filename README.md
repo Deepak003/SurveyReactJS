@@ -54,7 +54,7 @@ const postReducer = (state = [], action) => {
 export default postReducer;
 
 ---------------------------------------------------------------------------------------------
-We will fill in the contents of that function a bit later. Now let’s understand another important concept in Redux called actions. Actions are nothing but plain Javascript objects with a type property. This type property describes the event that is taking place in the application. This event can be anything from incrementing a counter to adding items in an array. These actions help us track the different events that are happening in our application. The structure of an action is as follows-
+Now let’s understand another important concept in Redux called actions. Actions are nothing but plain Javascript objects with a type property. This type property describes the event that is taking place in the application. This event can be anything from incrementing a counter to adding items in an array. These actions help us track the different events that are happening in our application. The structure of an action is as follows-
 
 {
  type: 'EVENT_NAME'
@@ -653,5 +653,9 @@ Great, so our CRUD functionality is complete. Now let’s add in some styles so 
 
 Please find the css code in codebase.
 
+Two important files in App are as follows:-
 
+![Post Reducer.js](https://github.com/Deepak003/Survey/blob/master/pr.png)
+
+![All Post Form](https://github.com/Deepak003/Survey/blob/master/pf.png)
 
