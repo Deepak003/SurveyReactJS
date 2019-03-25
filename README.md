@@ -6,7 +6,9 @@ edit,update and delete posts and view them.
 
 UI for Creating Post and Displaying Survey Posts
 ---------------------------------------------------
+
 Now that we have our basic UI in place let’s get into Redux. First thing to understand about Redux is something called the store. It’s where the entire state of your application will live. This is the first main benefit of using Redux. Instead of having to manage the state in different components we have to only manage it in one single place called the store. The store is an object which has some methods in it that allows us to get the current state of our application, subscribe to changes or update the existing state of our application. This is great because now we don’t have to pass down data from the parent component to deeply nested child components through props. So anytime a component needs data it can ask the store and the store will provide it with the data. As simple as that. With that in mind let’s create the store. In our crud-redux/src/index.js make the following changes-
+
 ------------------------------------------------------------------------------------------------------
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -27,6 +29,7 @@ const postReducer = (state = [], action) => {
 
 }
 export default postReducer;
+
 ---------------------------------------------------------------------------------------------
 We will fill in the contents of that function a bit later. Now let’s understand another important concept in Redux called actions. Actions are nothing but plain Javascript objects with a type property. This type property describes the event that is taking place in the application. This event can be anything from incrementing a counter to adding items in an array. These actions help us track the different events that are happening in our application. The structure of an action is as follows-
 
@@ -204,7 +207,7 @@ return (
 export default connect()(PostForm);
   
 With that in place we can easily access dispatch in our components so let’s use it.
-
+-----------------------------------------------------------------------------------------
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 class PostForm extends Component {
@@ -241,7 +244,7 @@ return (
 }
 }
 export default connect()(PostForm);
-  
+-------------------------------------------------------------------------------------------------------------  
 Remember that connect() gives you access to dispatch as a prop. Here once we have captured the data from the form we dispatch the action using this.props.dispatch() passing in the data object with a type of ‘ADD_POST’.
 
 Great, now we have added some data in our state but we can’t see any of those changes reflected in our application so let’s fix that. Before doing that let’s understand one more important thing about connect(). This special function provided by the react-redux library gives you access to dispatch whenever you call it wrapping the component-name as an argument to the function that is returned. We have seen this syntax which is as follows-
@@ -305,10 +308,12 @@ const mapStateToProps = (state) => {
 }
 export default connect(mapStateToProps)(AllPost);
 
+---------------------------------------------------------------------------------------------------------
 To test this out enter some values in the title and the message fields and check your console.
 
 Great so we have the post. All is left is to display it in the browser. To do that let’s create another component called Post. So under crud-redux/src create a new file and call it ‘Post.js’. Now head back to AllPost.js and make the following changes-
 
+------------------------------------------------------------------------------------------------------------------
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
@@ -333,6 +338,7 @@ const mapStateToProps = (state) => {
 }
 export default connect(mapStateToProps)(AllPost);
 
+---------------------------------------------------------------------------------------------------------
 We have imported the Post component inside AllPost and used the Array.prototype.map function to loop over each of the individual posts inside this.props.posts and pass it down to the Post component with the key as post.id and the post itself. Inside crud-redux/src/Post.js add in the following-
 
 import React, { Component } from 'react';
@@ -349,6 +355,7 @@ class Post extends Component {
 }
 export default Post;
 
+-----------------------------------------------------------------------------------------------------------------------
 If you have got this far, great you are finally done with the C and the R part of this CRUD application as now we can create posts and can read them as well.
 
 Before diving into the update and the delete part of this application let’s recap.
@@ -363,6 +370,7 @@ With that out of the way, let’s go back to the Post.js file and add in some bu
 
 Let’s tackle the delete functionality first as it is easier. What we want to do is that whenever the user clicks the delete button it should remove the post. Now to do that we need to identify which post the user is deleting and we can do that with the post.id property that we included when we were adding the post earlier in PostForm component. So we need the following things, first we need an onClick handler so that when the user clicks the delete button we can do something. Then what we need is to dispatch an action of type say ‘DELETE_POST’. We know pretty well how to get that going and that is by using connect.
 
+-----------------------------------------------------------------------------------------------------------------
 import React, { Component } from 'react';
 
 import {connect} from 'react-redux';
@@ -383,10 +391,12 @@ class Post extends Component {
 }
 export default connect()(Post);
 
+--------------------------------------------------------------------------------------------------------
 Here inside the onClick handler we have an arrow function that is invoked when the user clicks the delete button. Once they do, we dispatch an action of type ‘DELETE_POST’ and we also pass in the id of the given post.
 
 To make this work we need to add this event in our reducers so let’s go back to our reducers under crud-redux/src/reducers/postReducer.js and add in the following-
 
+----------------------------------------------------------------------------------------------------------------
 const postReducer = (state = [], action) => {
   switch(action.type) {
     case 'ADD_POST':
@@ -399,6 +409,7 @@ const postReducer = (state = [], action) => {
 }
 export default postReducer;
 
+-------------------------------------------------------------------------------------------------------------
 Here we use Array.prototype.filter to remove the post with the id that matches action.id.
 
 Now that is in place, go back to the app and try adding some data and then click the delete button. If the post goes away then great you have successfully implemented the D of this CRUD application. The only thing that is left is the update operation.
@@ -409,6 +420,7 @@ One approach in doing this is to use a boolean in our data object. This boolean 
 
 Inside crud-redux/src/PostForm.js make the following changes-
 
+---------------------------------------------------------------------------------------------------
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 class PostForm extends Component {
@@ -447,6 +459,7 @@ return (
 }
 export default connect()(PostForm);
   
+--------------------------------------------------------------------------------------------------------------------------  
 Here we have added an extra property called ‘editing’ and have set its value as false. Next create a file called EditComponent.js inside the src folder. Once that is done head over to crud-redux/src/AllPost.js and make the following changes-
 
 import React, { Component } from 'react';
@@ -480,10 +493,12 @@ const mapStateToProps = (state) => {
 }
 export default connect(mapStateToProps)(AllPost);
 
+----------------------------------------------------------------------------------------------------------------------------
 All that this code is doing is that it is checking the value of editing in each of the posts and if it is true then instead of rendering the Post component it is rendering the EditComponent and passing it the post as a prop.
 
 Before going in and adding the Form in EditComponent, we need to make one more change inside Post.js so go inside crud-redux/src/Post.js and make the following change-
 
+-------------------------------------------------------------------------------------------------------------
 import React, { Component } from 'react';
 
 import {connect} from 'react-redux';
@@ -506,10 +521,12 @@ class Post extends Component {
 }
 export default connect()(Post);
 
+-------------------------------------------------------------------------------------------------------------------
 All we are doing is that when the user clicks the edit button we are dispatching an action of type ‘EDIT_POST’ and also passing the id of the post.
 
 Since we have dispatched a new event, we need to make some changes in postReducer.js so head over to this file and make the following changes-
 
+-----------------------------------------------------------------------------------------------------------------------
 const postReducer = (state = [], action) => {
   switch(action.type) {
     case 'ADD_POST':
@@ -524,13 +541,14 @@ const postReducer = (state = [], action) => {
 }
 export default postReducer;
 
+-----------------------------------------------------------------------------------------------------------------------------
 Here we are using Array.prototype.map to loop over each item and then check the id of the post with the id that was passed in the action. If there is a match then return a new object but change the value of editing to true if it was false or vice-versa. If there is no match then just return the object as it is.
 
 Finally, let’s head over to EditComponent.js and add in the following-
 
+---------------------------------------------------------------------------------------------------------------------------------
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 
 class EditComponent extends Component {
 handleEdit = (e) => {
@@ -558,11 +576,13 @@ return (
 }
 }
 export default connect()(EditComponent);
-  
+ 
+--------------------------------------------------------------------------------------------------------------------------------
 Here we are creating another Form which has an onSubmit handler. When the form is submitted, this.handleEdit function is invoked. This function takes in the event as a parameter. e.preventDefault() stops the page from refreshing. Then we are grabbing the data from the inputs using refs and putting it inside an object.Finally we are dispatching a new action with type property as ‘UPDATE’ . We are also passing in the id of the post that needs to be updated along with the updated data. Don’t forget to use the connect function when dispatching actions.
 
 Since we have added in a new event in our files, we need to make some changes in the reducer so head back to the reducer and make the following changes-
 
+-------------------------------------------------------------------------------------------------------------------------------
 const postReducer = (state = [], action) => {
   switch(action.type) {
     case 'ADD_POST':
@@ -588,6 +608,7 @@ const postReducer = (state = [], action) => {
 }
 export default postReducer;
 
+-------------------------------------------------------------------------------------------------------------------------------
 In here all we are doing is using Array.prototype.map and looping over each posts and the post whose id matches the one with the id that was passed in the action we are returning a new object but with the updated values for title and message.Finally we are setting editing to false.
 
 With that we are done, head over to the app, add some posts and hit the edit button.
