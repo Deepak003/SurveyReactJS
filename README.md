@@ -10,7 +10,9 @@ Please do an npm install followed by npm start.
 UI for Creating Post and Displaying Survey Posts
 ---------------------------------------------------
 
-![Create Survey Page](https://github.com/Deepak003/Survey/blob/master/Create_Survey.png)
+![Create Survey Page](https://github.com/Deepak003/Survey/blob/master/Survey_Create.png)
+
+![Wizard Page](https://github.com/Deepak003/Survey/blob/master/Wizard.png)
 
 Now that we have our basic UI in place let’s get into Redux. First thing to understand about Redux is something called the store. It’s where the entire state of your application will live. This is the first main benefit of using Redux. Instead of having to manage the state in different components we have to only manage it in one single place called the store. The store is an object which has some methods in it that allows us to get the current state of our application, subscribe to changes or update the existing state of our application. This is great because now we don’t have to pass down data from the parent component to deeply nested child components through props. So anytime a component needs data it can ask the store and the store will provide it with the data. As simple as that. With that in mind let’s create the store. In our crud-redux/src/index.js make the following changes-
 
