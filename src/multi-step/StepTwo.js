@@ -25,30 +25,23 @@ export class StepTwo extends React.Component {
       <div>
         <div className='row'>
           <div className='six columns'>
-            <label>Question 1</label>
+            <label>Question Template Name</label>
             <input
               className='u-full-width required'
-              placeholder='Enter Question here'
-              type='email'
+              placeholder='Enter Question Template Name here'
+              type='text'
               onChange={this.handleEmailChanged}
               value={this.state.email}
               autoFocus
             />
           </div>
         </div>
-        <div className='row'>
+	<div className='row'>
           <div className='six columns'>
-            <label>Question 2</label>
-            <input
-              className='u-full-width'
-              placeholder='Enter Question here'
-              type='email'
-              onChange={this.handleEmailConfirmChanged}
-              value={this.state.emailConfirm}
-            />
+            <a href="https://survey-create-questions.netlify.com/">Create Questions</a>
           </div>
         </div>
-		 
+	
       </div>
     )
   }
