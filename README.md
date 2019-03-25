@@ -17,7 +17,7 @@ Please do an npm install followed by npm start.
 ![Create Survey Page](https://github.com/Deepak003/Survey/blob/master/Survey_Create.png)
 
 
-2. Survey Wizard Page :: Where Users can Create a Survey
+3. Survey Wizard Page :: Where Users can Create a Survey
 ---------------------------------------------------------
 ![Login Page](https://github.com/Deepak003/Survey/blob/master/wizard.png)
 
