@@ -43,17 +43,20 @@ An action can have any number of properties but it must have a type property. So
   type:'ADD_ITEM',
   name: 'Redux'
 }
+
 In this example the event name is ‘ADD_ITEM’ and the data is the name property with a value of ‘Redux’. Now another important term that is used alongside actions is called dispatch. When we say ‘dispatch an action’ we simply mean call the dispatch method which is inside the store object with an action. Still with me?
 
 Let’s look at the store. The store that we created using the createStore method is an object which has some methods in it. One of those methods is called dispatch. This dispatch method accepts an object as it’s argument and this object is what we call as ‘action’.
 
 
-what dispatch really is
+What dispatch really is:-
+
 With that out of the way, let’s finally go back to that function that we wrote earlier inside postReducer.js. You see whenever we dispatch an action, this action with it’s type property is received by something called the reducer. Now what the heck is the reducer? Well it’s nothing but a function that takes the current state and an action that was dispatched as it’s parameters and returns the new state.
 So next time when you see the term reducer thrown around remember that it’s just a function that gives you new state for your components.
 
 Now the question is how does the reducer go about producing the new state for the application. Well that is pretty simple, it first checks which type of action was dispatched and based on it returns the new state. Under crud-redux/src/reducers/postReducer.js add the following lines of code.
 
+-------------------------------------------------------------------------------------------------------------------------------------
 const postReducer = (state = [], action) => {
   switch(action.type) {
     case 'ADD_POST':
@@ -64,8 +67,10 @@ const postReducer = (state = [], action) => {
 }
 export default postReducer;
 
+---------------------------------------------------------------------------------------------------------------------------------------
 Now what is happening here is that we are using a ‘switch statement’ and we are switching based on the value of action.type. If the value is ‘ADD_POST’ we are returning a new array containing action.data. Basically whenever the ‘ADD_POST’ event happens we want to push some data into the state array.Now what is action.data? Well it’s nothing but an object with our individual post title and the post message. One thing to note here is that the reducer function expects a default value for the state. Here we are using ES6 default-parameter syntax to add that. The default value for the state here is an empty array. One other thing to note is that a reducer must always have the default clause inside the switch statement. In the default clause we simply return the state. This is done so that in case none of the action.type value matches any of the cases we simply return the state.
 
+------------------------------------------------------------------------------------------------------------------------------------
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -94,10 +99,12 @@ ReactDOM.render(
 <App />
 </Provider>, document.getElementById('root'));
 
+----------------------------------------------------------------------------------------------------------------------------------
 The Provider component uses something called React Context which allows you to pass the store object to any components that needs to access it without the need to pass props. Here we are wrapping the App component which is our parent component with the Provider component so that all the child components in our app can get access to the store. The Provider component takes the store as a prop.
 
 Let’s head back to our PostForm component and connect it to our store so that we can dispatch actions.
 
+----------------------------------------------------------------------------------------------------------------------------------
 import React, { Component } from 'react';
 
 class PostForm extends Component {
@@ -129,11 +136,13 @@ return (
 }
 }
 export default PostForm;
-  
+
+----------------------------------------------------------------------------------------------------------------------------------
 So in here the form element now accepts an onSubmit event. Whenever this event takes place the handleSubmit function will execute. The handleSubmit function takes one argument which is the event. Calling e.preventDefault() will prevent the page from refreshing. Next we grab the value of the title and the message from the inputs using refs and then put them inside an object called data. We also have an id property whose value is set to whatever new Date() returns. We will use this id property to perform update and delete operations.
 
 Let’s put in some values in the title and the post fields and log it to the console. This is to make sure that the data is being captured. Add a console.log() in between like in the following-
 
+-------------------------------------------------------------------------------------------------------------------------------------
 import React, { Component } from 'react';
 
 class PostForm extends Component {
@@ -166,9 +175,10 @@ return (
 }
 }
 export default PostForm;
-  
+---------------------------------------------------------------------------------------------------------------------------------  
 It seems like our data is being captured properly. Great all is left now is to dispatch an action. To do that we will make use of the connect() function provided by the react-redux library. Now this is where things might get a bit tricky but I will try my best to explain it. We know that our state lives inside this object called the store and this store has it’s own set of methods for getting the current state of our application, updating the state of our application and subscribing for changes. We have already discussed one of these methods called dispatch. We need dispatch whenever we want to pass some action to the reducer to tell some sort of event has happened and then the reducer can decide what to do with the state. But to do that we need access to dispatch. Won’t it be great if we somehow got access to the dispatch method as a prop. That is what connect() allows you to do. connect() returns a function which takes in your current component as an argument and returns a new component with dispatch method as it’s prop. The main idea to remember is that connect will ultimately return a new component which has the dispatch method as a prop.The basic syntax for writing connect in your React components is as follows-
 
+------------------------------------------------------------------------------------------------------------------------------------
 export default connect()(component-name)
 
 So let’s use that and add it in our PostForm.js. So after that our component will look like so-
@@ -263,6 +273,7 @@ Next we return an object with a key posts and the value is the state itself. The
 
 With that in place let’s add this function as an argument to our connect. So inside crud-redux/src/AllPost.js make the following changes-
 
+----------------------------------------------------------------------------------------------------------------------------------
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
