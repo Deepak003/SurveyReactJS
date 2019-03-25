@@ -3,7 +3,7 @@ The main goal of this was to use Redux and create a multi-user application
 where users can sign in or sign up using their email-address and password. They can create,
 edit,update and delete posts and view them.
 
-![alt text](https://github.com/Deepak003/Survey)
+![alt text](https://github.com/Deepak003/Survey/LOGIN.png)
 
 UI for Creating Post and Displaying Survey Posts
 ---------------------------------------------------
